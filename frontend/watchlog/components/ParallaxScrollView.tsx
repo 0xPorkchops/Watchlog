@@ -1,5 +1,6 @@
 import type { PropsWithChildren, ReactElement } from 'react';
 import { StyleSheet } from 'react-native';
+import React from 'react';
 import Animated, {
   interpolate,
   useAnimatedRef,
@@ -10,7 +11,7 @@ import Animated, {
 import { ThemedView } from '@/components/ThemedView';
 import { useBottomTabOverflow } from '@/components/ui/TabBarBackground';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import React = require('react');
+//import React = require('react');
 
 const HEADER_HEIGHT = 250;
 
