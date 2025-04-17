@@ -1,0 +1,18 @@
+{
+  "name": "watchlog",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.1",
+    "react": "^19.1.0",
+    "react-native": "^0.79.0",
+    "react-native-reanimated": "^3.17.3"
+  }
+}
