@@ -2,7 +2,7 @@ import express from 'express';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import connectDB from './db';
-import { createUser, getUsers } from './userHandlers';
+import { createUser, getUsers } from './MongoHandlers/userHandlers';
 import 'dotenv/config'; 
 import { clerkMiddleware } from '@clerk/express'
 
