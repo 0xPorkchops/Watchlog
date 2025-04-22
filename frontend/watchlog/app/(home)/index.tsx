@@ -66,10 +66,10 @@ export default function HomeScreen() {
             </View>
           </View>
 
-          {/* Placeholder image */}
+          {/* placeholder image */}
           <View style={styles.imageBox}>
             <Image
-              source={{ uri: 'https://via.placeholder.com/400x250.png?text=Image' }}
+              source={{ uri: 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg' }}
               style={styles.image}
             />
           </View>
