@@ -9,15 +9,15 @@ export interface User extends Document {
 }
 
 const UserSchema: Schema = new Schema({
-    id: { type: Number, required: true },
+    id: { type: Number, required: true, unique: true },
     name: { type: String, required: true },
     email: { type: String, required: true },
     library: {
-        watched: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
-        watch_list: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
-        liked: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
-        disliked: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
-    },
-});
+      watched: [{ type: Number }],        
+      watch_list: [{ type: Number }],
+      liked: [{ type: Number }],
+      disliked: [{ type: Number }]
+    }
+  });
 
 export default mongoose.model<User>('User', UserSchema);
