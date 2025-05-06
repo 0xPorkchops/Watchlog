@@ -1,16 +1,15 @@
 import express from 'express';
 import helmet from 'helmet';
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { clerkMiddleware } from '@clerk/express';
+import dotenv from 'dotenv';
 import 'dotenv/config';
 
-// MongoDB connection setup
+// Load env vars
 dotenv.config();
 const MONGO_URI = process.env.MONGODB_URI!;
 const PORT = 3000;
 
-// Handler Imports
+// --- Import Handlers ---
 import {
   createUser,
   getUsers
@@ -35,13 +34,12 @@ import {
   getGuild
 } from './MongoHandlers/guildHandlers';
 
-// Create app
+// --- Create Express App ---
 const app = express();
 
-// Middleware
+// --- Middleware ---
 app.use(helmet());
 app.use(express.json());
-app.use(clerkMiddleware()); // Clerk must come before any route handlers
 
 // --- User Routes ---
 app.post('/createUser', createUser);
@@ -67,7 +65,7 @@ app.post('/guilds/add', addToGuild);
 app.post('/guilds/remove', removeFromGuild);
 app.get('/guilds/:id', getGuild);
 
-// --- Connect to MongoDB ---
+// --- MongoDB Connection ---
 mongoose.connect(MONGO_URI)
   .then(() => {
     console.log('✅ Connected to MongoDB');
