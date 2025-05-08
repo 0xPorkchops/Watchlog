@@ -1,4 +1,5 @@
-import User from './Models/User';
+import User from '../Models/User';
+
 import type { Request, Response } from 'express';
 
 async function createUser(req: Request, res: Response) : Promise<void> {
