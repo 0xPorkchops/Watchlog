@@ -10,6 +10,7 @@ import {
   Modal,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Link } from 'expo-router';
 
 export default function HomeScreen() {
   const { height } = useWindowDimensions();
@@ -38,7 +39,11 @@ export default function HomeScreen() {
           <View style={styles.nav}>
             <Text style={styles.navLink}>Your Lists</Text>
             <Text style={styles.navLink}>Recommendations</Text>
-            <Text style={styles.navLink}>Top Ten</Text>
+            <Link href= "/(tabs)/groups" asChild>
+              <Pressable>
+              <Text style={styles.navLink}>Your Groups</Text>
+              </Pressable>
+            </Link>
             <Text style={styles.navLink}>New</Text>
             <Pressable style={styles.searchBtn}>
               <Text style={styles.searchText}>Search</Text>
