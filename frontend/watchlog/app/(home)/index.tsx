@@ -122,21 +122,25 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 40,
     paddingHorizontal: 24,
-    backgroundColor: '#fff',
+    backgroundColor: '#fbfbfe', // white
     alignItems: 'center',
   },
   header: {
     width: '100%',
     maxWidth: 1200,
     marginBottom: 40,
+    backgroundColor: '#fefcf1', // pastel yellow
+    padding: 16,
+    borderRadius: 8,
   },
   logo: {
     fontSize: 24,
     fontWeight: '700',
-    borderColor: '#888',
+    borderColor: '#fefcf1',
     borderWidth: 1,
     paddingHorizontal: 6,
     marginBottom: 8,
+    color: '#f5c024', // yellow
   },
   nav: {
     flexDirection: 'row',
@@ -148,15 +152,16 @@ const styles = StyleSheet.create({
     marginRight: 20,
     fontSize: 16,
     fontWeight: '600',
+    color: '#040316', // color for tabs
   },
   searchBtn: {
-    backgroundColor: '#333',
+    backgroundColor: '#f5c024', // Accent color for search button
     paddingVertical: 4,
     paddingHorizontal: 12,
     borderRadius: 6,
   },
   searchText: {
-    color: 'white',
+    color: '#040316',
   },
   main: {
     flexDirection: 'row',
@@ -175,10 +180,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: '700',
     marginBottom: 12,
+    color: '#040316', // Text color for recommendation title
   },
   recDescription: {
     fontSize: 16,
-    color: '#444',
+    color: '#040316',
     marginBottom: 24,
   },
   buttons: {
@@ -186,24 +192,27 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   primaryBtn: {
-    backgroundColor: '#333',
+    backgroundColor: '#f5c024', // Accent color for primary button
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 6,
+    borderWidth: 1,            
+    borderColor: '#f5c024',        
   },
   primaryBtnText: {
-    color: 'white',
+    color: '#040316',
     fontWeight: '600',
   },
   secondaryBtn: {
-    borderWidth: 1,
-    borderColor: '#888',
+    backgroundColor: '#bde4ef', // Secondary color for secondary button border
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#bde4ef',
   },
   secondaryBtnText: {
-    color: '#444',
+    color: '#040316', // Text color for secondary button
     fontWeight: '500',
   },
   imageBox: {
@@ -226,13 +235,13 @@ const styles = StyleSheet.create({
     maxWidth: 1200,
   },
   posterImage: {
-    width: 180,       // was 120
-    height: 200,      // was 180
+    width: 180,
+    height: 200,
     borderRadius: 10,
-    backgroundColor: '#ccc',
+    backgroundColor: '#bde4ef',
   },
   posterContainer: {
-    marginRight: 16,  // extra spacing for breathing room
+    marginRight: 16,
     borderRadius: 10,
     overflow: 'hidden',
   },
@@ -243,11 +252,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
     padding: 24,
     borderRadius: 16,
     alignItems: 'center',
-    width: '90%', 
+    width: '90%',
     maxWidth: 700,
   },
   modalImage: {
@@ -262,14 +271,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     paddingHorizontal: 10,
-  },  
+  },
   modalTitle: {
     fontSize: 20,
     fontWeight: '600',
     marginBottom: 12,
+    color: '#040316', 
   },
   closeButton: {
-    backgroundColor: '#333',
+    backgroundColor: '#040316',
     paddingVertical: 8,
     paddingHorizontal: 20,
     borderRadius: 6,
