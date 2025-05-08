@@ -11,10 +11,43 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { useEffect } from 'react';
+
+// const fetchMoviePoster = async (title: string) => {
+//   const res = await fetch('http://localhost:3000/searchMovie', {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({ title }),
+//   });
+//   return res.json(); // expects { Poster: "...", Title: "...", etc. }
+// };
+const [posterUrl, setPosterUrl] = useState<string | null>(null);
+const [plot, setPlot] = useState<string | null>(null);
+
+
 export default function HomeScreen() {
   const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPoster, setSelectedPoster] = useState<number | null>(null);
+
+  useEffect(() => {
+    async function fetchInterstellar() {
+      try {
+        const res = await fetch('http://localhost:3000/searchMovie', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: 'Interstellar' }),
+        });
+        const data = await res.json();
+        setPosterUrl(data.Poster);
+        setPlot(data.Plot);
+      } catch (err) {
+        console.error("Failed to fetch movie", err);
+      }
+    }
+  
+    fetchInterstellar();
+  }, []);
 
   const openModal = (index: number) => {
     setSelectedPoster(index);
@@ -68,11 +101,12 @@ export default function HomeScreen() {
 
           {/* Placeholder image */}
           <View style={styles.imageBox}>
-            <Image
-              source={{ uri: 'https://via.placeholder.com/400x250.png?text=Image' }}
-              style={styles.image}
-            />
-          </View>
+    {posterUrl ? (
+      <Image source={{ uri: posterUrl }} style={styles.image} />
+    ) : (
+      <Text>Loading poster...</Text>
+    )}
+  </View>
         </View>
 
         {/* scrollable movie wheel */}
