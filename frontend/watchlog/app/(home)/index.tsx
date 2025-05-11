@@ -37,17 +37,16 @@ export default function HomeScreen() {
         <View style={styles.header}>
           <Text style={styles.logo}>WATCH LOG</Text>
           <View style={styles.nav}>
-            <Text style={styles.navLink}>Your Lists</Text>
+            {/* <Text style={styles.navLink}>Your Lists</Text>
             <Text style={styles.navLink}>Recommendations</Text>
-            <Link href= "/(tabs)/groups" asChild>
-              <Pressable>
-              <Text style={styles.navLink}>Your Groups</Text>
-              </Pressable>
-            </Link>
             <Text style={styles.navLink}>New</Text>
             <Pressable style={styles.searchBtn}>
               <Text style={styles.searchText}>Search</Text>
-            </Pressable>
+            </Pressable> */}
+            <Pressable style={styles.tabBtns} > <Text style={styles.secondaryBtnText}>Your Lists</Text> </Pressable>
+            <button style={styles.navLink} > Recommendations </button>
+            <button style={styles.navLink} > Groups </button>
+            <button style={styles.navLink} > Search </button>
           </View>
         </View>
 
@@ -154,6 +153,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  tabBtns: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    backgroundColor: 'transparent', 
+    borderRadius: '12px', 
+    border: '1px solid black', 
+    marginRight: 5,
+    fontSize: 16,
+    fontWeight: '600',
+    cursor: "pointer"
+  }, 
   searchBtn: {
     backgroundColor: '#333',
     paddingVertical: 4,
