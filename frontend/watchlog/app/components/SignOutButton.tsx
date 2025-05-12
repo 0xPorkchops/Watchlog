@@ -3,7 +3,7 @@ import * as Linking from 'expo-linking'
 import React from 'react'
 import { Text, TouchableOpacity } from 'react-native'
 
-export const SignOutButton = () => {
+const SignOutButton = () => {
   // Use `useClerk()` to access the `signOut()` function
   const { signOut } = useClerk()
 
@@ -25,3 +25,5 @@ export const SignOutButton = () => {
     </TouchableOpacity>
   )
 }
+
+export default SignOutButton;
