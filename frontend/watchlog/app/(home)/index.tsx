@@ -15,6 +15,7 @@ export default function HomeScreen() {
   const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPoster, setSelectedPoster] = useState<number | null>(null);
+  const [movieTitle, setMovieTitle] = useState<string | null>(null);
   const [posterUrl, setPosterUrl] = useState<string | null>(null);
   const [plot, setPlot] = useState<string | null>(null);
 
@@ -31,6 +32,7 @@ export default function HomeScreen() {
         });
         const data = await res.json();
         console.log('Poster URL:', data.Poster);
+				setMovieTitle(data.Title);
         setPosterUrl(data.Poster);
         setPlot(data.Plot);
       } catch (err) {
@@ -74,11 +76,9 @@ export default function HomeScreen() {
         {/* Main Content */}
         <View style={styles.main}>
           <View style={styles.left}>
-            <Text style={styles.recTitle}>(Top movie/show rec title here)</Text>
+            <Text style={styles.recTitle}>{movieTitle ? movieTitle : 'Loading title...'}</Text>
             <Text style={styles.recDescription}>
-              (this section will have the algorithm’s best recommendation for the user, and the title
-              of the rec goes above while a brief description goes here)
-              {'\n'}(here is a list of possible tags or genres)
+              {plot ? plot : 'Loading plot...'}
             </Text>
 
             <View style={styles.buttons}>
