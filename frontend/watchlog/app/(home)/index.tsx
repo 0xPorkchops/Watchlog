@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -15,6 +15,33 @@ export default function HomeScreen() {
   const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPoster, setSelectedPoster] = useState<number | null>(null);
+  const [movieTitle, setMovieTitle] = useState<string | null>(null);
+  const [posterUrl, setPosterUrl] = useState<string | null>(null);
+  const [plot, setPlot] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchInterstellar() {
+      try {
+        const res = await fetch('http://localhost:3000/searchMovie', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            searchType: '0', // 0 for title search
+            movieInfo: { Title: 'Interstellar' }
+          }),
+        });
+        const data = await res.json();
+        console.log('Poster URL:', data.Poster);
+				setMovieTitle(data.Title);
+        setPosterUrl(data.Poster);
+        setPlot(data.Plot);
+      } catch (err) {
+        console.error("Failed to fetch movie", err);
+      }
+    }
+  
+    fetchInterstellar();
+  }, []);
 
   const openModal = (index: number) => {
     setSelectedPoster(index);
@@ -49,11 +76,9 @@ export default function HomeScreen() {
         {/* Main Content */}
         <View style={styles.main}>
           <View style={styles.left}>
-            <Text style={styles.recTitle}>(Top movie/show rec title here)</Text>
+            <Text style={styles.recTitle}>{movieTitle ? movieTitle : 'Loading title...'}</Text>
             <Text style={styles.recDescription}>
-              (this section will have the algorithm’s best recommendation for the user, and the title
-              of the rec goes above while a brief description goes here)
-              {'\n'}(here is a list of possible tags or genres)
+              {plot ? plot : 'Loading plot...'}
             </Text>
 
             <View style={styles.buttons}>
@@ -66,13 +91,14 @@ export default function HomeScreen() {
             </View>
           </View>
 
-          {/* placeholder image */}
+          {/* Placeholder image */}
           <View style={styles.imageBox}>
-            <Image
-              source={{ uri: 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg' }}
-              style={styles.image}
-            />
-          </View>
+    {posterUrl ? (
+      <Image source={{ uri: posterUrl }} style={styles.image} />
+    ) : (
+      <Text>Loading poster...</Text>
+    )}
+  </View>
         </View>
 
         {/* scrollable movie wheel */}
@@ -85,7 +111,7 @@ export default function HomeScreen() {
                 onPress={() => openModal(i + 1)}
               >
                 <Image
-                  source={{ uri: `https://via.placeholder.com/120x180?text=Movie+${i + 1}` }}
+                  source={{ uri: `https://picsum.photos/120/180?random=${i}` }}
                   style={styles.posterImage}
                 />
               </Pressable>
@@ -122,25 +148,21 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 40,
     paddingHorizontal: 24,
-    backgroundColor: '#fbfbfe', // white
+    backgroundColor: '#fff',
     alignItems: 'center',
   },
   header: {
     width: '100%',
     maxWidth: 1200,
     marginBottom: 40,
-    backgroundColor: '#fefcf1', // pastel yellow
-    padding: 16,
-    borderRadius: 8,
   },
   logo: {
     fontSize: 24,
     fontWeight: '700',
-    borderColor: '#fefcf1',
+    borderColor: '#888',
     borderWidth: 1,
     paddingHorizontal: 6,
     marginBottom: 8,
-    color: '#f5c024', // yellow
   },
   nav: {
     flexDirection: 'row',
@@ -152,16 +174,15 @@ const styles = StyleSheet.create({
     marginRight: 20,
     fontSize: 16,
     fontWeight: '600',
-    color: '#040316', // color for tabs
   },
   searchBtn: {
-    backgroundColor: '#f5c024', // Accent color for search button
+    backgroundColor: '#333',
     paddingVertical: 4,
     paddingHorizontal: 12,
     borderRadius: 6,
   },
   searchText: {
-    color: '#040316',
+    color: 'white',
   },
   main: {
     flexDirection: 'row',
@@ -180,11 +201,10 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: '700',
     marginBottom: 12,
-    color: '#040316', // Text color for recommendation title
   },
   recDescription: {
     fontSize: 16,
-    color: '#040316',
+    color: '#444',
     marginBottom: 24,
   },
   buttons: {
@@ -192,27 +212,24 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   primaryBtn: {
-    backgroundColor: '#f5c024', // Accent color for primary button
+    backgroundColor: '#333',
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 6,
-    borderWidth: 1,            
-    borderColor: '#f5c024',        
   },
   primaryBtnText: {
-    color: '#040316',
+    color: 'white',
     fontWeight: '600',
   },
   secondaryBtn: {
-    backgroundColor: '#bde4ef', // Secondary color for secondary button border
+    borderWidth: 1,
+    borderColor: '#888',
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#bde4ef',
   },
   secondaryBtnText: {
-    color: '#040316', // Text color for secondary button
+    color: '#444',
     fontWeight: '500',
   },
   imageBox: {
@@ -220,14 +237,14 @@ const styles = StyleSheet.create({
     minWidth: 300,
     maxWidth: 600,
     aspectRatio: 1.5,
-    backgroundColor: '#ddd',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
   },
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   posterWheel: {
     marginTop: 40,
@@ -235,13 +252,13 @@ const styles = StyleSheet.create({
     maxWidth: 1200,
   },
   posterImage: {
-    width: 180,
-    height: 200,
+    width: 180,       // was 120
+    height: 200,      // was 180
     borderRadius: 10,
-    backgroundColor: '#bde4ef',
+    backgroundColor: '#ccc',
   },
   posterContainer: {
-    marginRight: 16,
+    marginRight: 16,  // extra spacing for breathing room
     borderRadius: 10,
     overflow: 'hidden',
   },
@@ -252,11 +269,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     padding: 24,
     borderRadius: 16,
     alignItems: 'center',
-    width: '90%',
+    width: '90%', 
     maxWidth: 700,
   },
   modalImage: {
@@ -271,15 +288,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     paddingHorizontal: 10,
-  },
+  },  
   modalTitle: {
     fontSize: 20,
     fontWeight: '600',
     marginBottom: 12,
-    color: '#040316', 
   },
   closeButton: {
-    backgroundColor: '#040316',
+    backgroundColor: '#333',
     paddingVertical: 8,
     paddingHorizontal: 20,
     borderRadius: 6,
