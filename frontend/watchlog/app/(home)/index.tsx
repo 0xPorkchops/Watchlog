@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,24 +11,12 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { useEffect } from 'react';
-
-// const fetchMoviePoster = async (title: string) => {
-//   const res = await fetch('http://localhost:3000/searchMovie', {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({ title }),
-//   });
-//   return res.json(); // expects { Poster: "...", Title: "...", etc. }
-// };
-const [posterUrl, setPosterUrl] = useState<string | null>(null);
-const [plot, setPlot] = useState<string | null>(null);
-
-
 export default function HomeScreen() {
   const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPoster, setSelectedPoster] = useState<number | null>(null);
+  const [posterUrl, setPosterUrl] = useState<string | null>(null);
+  const [plot, setPlot] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchInterstellar() {
@@ -36,9 +24,13 @@ export default function HomeScreen() {
         const res = await fetch('http://localhost:3000/searchMovie', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title: 'Interstellar' }),
+          body: JSON.stringify({
+            searchType: '0', // 0 for title search
+            movieInfo: { Title: 'Interstellar' }
+          }),
         });
         const data = await res.json();
+        console.log('Poster URL:', data.Poster);
         setPosterUrl(data.Poster);
         setPlot(data.Plot);
       } catch (err) {
@@ -119,7 +111,7 @@ export default function HomeScreen() {
                 onPress={() => openModal(i + 1)}
               >
                 <Image
-                  source={{ uri: `https://via.placeholder.com/120x180?text=Movie+${i + 1}` }}
+                  source={{ uri: `https://picsum.photos/120/180?random=${i}` }}
                   style={styles.posterImage}
                 />
               </Pressable>
@@ -245,14 +237,14 @@ const styles = StyleSheet.create({
     minWidth: 300,
     maxWidth: 600,
     aspectRatio: 1.5,
-    backgroundColor: '#ddd',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
   },
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   posterWheel: {
     marginTop: 40,

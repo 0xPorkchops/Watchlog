@@ -54,7 +54,7 @@ export class OMDB {
 
 	public async searchByTitle(title: string): Promise<MoviePromise> {
 		const formattedTitle = encodeURIComponent(title);
-		const response = await fetch(`${this.baseURL}s=${formattedTitle}&plot=full`);
+		const response = await fetch(`${this.baseURL}t=${formattedTitle}&plot=full`);
 		if (response.ok) {
 			return (await response.json()) as MoviePromise;
 		} else {
