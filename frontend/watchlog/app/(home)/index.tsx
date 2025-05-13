@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,11 +10,39 @@ import {
   Modal,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Link } from 'expo-router';
 
 export default function HomeScreen() {
   const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPoster, setSelectedPoster] = useState<number | null>(null);
+  const [movieTitle, setMovieTitle] = useState<string | null>(null);
+  const [posterUrl, setPosterUrl] = useState<string | null>(null);
+  const [plot, setPlot] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchInterstellar() {
+      try {
+        const res = await fetch('http://localhost:3000/searchMovie', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            searchType: '0', // 0 for title search
+            movieInfo: { Title: 'Interstellar' }
+          }),
+        });
+        const data = await res.json();
+        console.log('Poster URL:', data.Poster);
+				setMovieTitle(data.Title);
+        setPosterUrl(data.Poster);
+        setPlot(data.Plot);
+      } catch (err) {
+        console.error("Failed to fetch movie", err);
+      }
+    }
+  
+    fetchInterstellar();
+  }, []);
 
   const openModal = (index: number) => {
     setSelectedPoster(index);
@@ -52,11 +80,9 @@ export default function HomeScreen() {
         {/* Main Content */}
         <View style={styles.main}>
           <View style={styles.left}>
-            <Text style={styles.recTitle}>(Top movie/show rec title here)</Text>
+            <Text style={styles.recTitle}>{movieTitle ? movieTitle : 'Loading title...'}</Text>
             <Text style={styles.recDescription}>
-              (this section will have the algorithm’s best recommendation for the user, and the title
-              of the rec goes above while a brief description goes here)
-              {'\n'}(here is a list of possible tags or genres)
+              {plot ? plot : 'Loading plot...'}
             </Text>
 
             <View style={styles.buttons}>
@@ -69,13 +95,14 @@ export default function HomeScreen() {
             </View>
           </View>
 
-          {/* placeholder image */}
+          {/* Placeholder image */}
           <View style={styles.imageBox}>
-            <Image
-              source={{ uri: 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg' }}
-              style={styles.image}
-            />
-          </View>
+    {posterUrl ? (
+      <Image source={{ uri: posterUrl }} style={styles.image} />
+    ) : (
+      <Text>Loading poster...</Text>
+    )}
+  </View>
         </View>
 
         {/* scrollable movie wheel */}
@@ -88,7 +115,7 @@ export default function HomeScreen() {
                 onPress={() => openModal(i + 1)}
               >
                 <Image
-                  source={{ uri: `https://via.placeholder.com/120x180?text=Movie+${i + 1}` }}
+                  source={{ uri: `https://picsum.photos/120/180?random=${i}` }}
                   style={styles.posterImage}
                 />
               </Pressable>
@@ -225,14 +252,14 @@ const styles = StyleSheet.create({
     minWidth: 300,
     maxWidth: 600,
     aspectRatio: 1.5,
-    backgroundColor: '#ddd',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
   },
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   posterWheel: {
     marginTop: 40,

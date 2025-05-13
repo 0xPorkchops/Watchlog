@@ -1,0 +1,1 @@
+{"ast":null,"code":"console.log(\"Hello via Bun!\");","map":{"version":3,"names":["console","log"],"sources":["C:/Users/farha/Downloads/Watchlog/index.ts"],"sourcesContent":["console.log(\"Hello via Bun!\");"],"mappings":"AAAAA,OAAO,CAACC,GAAG,CAAC,gBAAgB,CAAC","ignoreList":[]},"metadata":{"hasCjsExports":false},"sourceType":"script","externalDependencies":[]}
