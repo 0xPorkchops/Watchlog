@@ -3,16 +3,28 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "install:all": "bun install && cd backend && bun install && cd ../frontend/watchlog && bun install",
+    "dev:backend": "cd backend && bun run --hot index.ts",
+    "dev:frontend": "cd frontend/watchlog && bun run start",
+    "dev": "concurrently \"bun run dev:backend\" \"bun run dev:frontend\""
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/react": "~18.3.12"
+    "concurrently": "^9.1.2"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~4.0.1",
     "@types/express": "^5.0.1",
-    "react": "^19.1.0",
-    "react-native": "^0.79.0",
-    "react-native-reanimated": "^3.17.3"
+    "expo": "^52.0.46",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.76.9",
+    "react-native-reanimated": "3.16.1",
+    "react-native-web": "~0.19.13"
   }
 }
