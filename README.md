@@ -64,15 +64,21 @@ Then copy the following commands into the terminal. These commands will install 
 npm install expo
 npm install expo-router@~4.0.21 react@18.3.1 react-dom@18.3.1
 ```
-
-6. Next, go back to the root directory, then cd backend. After that, copy the following commands to download ts-node
+6. Create a .env file in the same directory, and add the API key:
+```bash
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_bGVnaWJsZS1sYWItNDEuY2xlcmsuYWNjb3VudHMuZGV2JA
+```
+7. Next, go back to the root directory, then cd backend. After that, copy the following commands to download ts-node
 
 ```bash
 cd ../../backend
 npm install ts-node --save-dev
 ```
-
-7. Finally, after you downloaded all the packages, go back to the root directory. There are a few options you can do next: you can open the backend and frontend separately. If you want to open both, you can do the following command.
+8. Create a .env file in the backend directory, and add this key:
+```bash
+OMDB_KEY=75a69b90
+```
+9. Finally, after you downloaded all the packages, go back to the root directory. There are a few options you can do next: you can open the backend and frontend separately. If you want to open both, you can do the following command.
 
 ```bash
 npm run dev:backend //Open backend
