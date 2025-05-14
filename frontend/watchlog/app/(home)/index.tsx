@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 6,
     marginBottom: 8,
+    color: '#f5c024', // yellow
   },
   nav: {
     flexDirection: 'row',
@@ -184,62 +185,68 @@ const styles = StyleSheet.create({
   navLink: {
     marginRight: 20,
     fontSize: 16,
-    fontWeight: '#040316',
-  },
-  tabBtns: {
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    backgroundColor: 'transparent', 
-    borderRadius: '12px', 
-    border: '1px solid black', 
-    marginRight: 5,
-    fontSize: 16,
-    fontWeight: '600',
-    cursor: "pointer"
-  }, 
-  searchBtn: {
-    backgroundColor: '#f5c024',
-    paddingVertical: 4,
-    paddingHorizontal: 12,
-    borderRadius: 6,
-  },
-  searchText: {
-    color: '#040316',
-  },
-  main: {
-    flexDirection: 'row',
-    width: '100%',
-    maxWidth: 1200,
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    gap: 24,
-  },
-  left: {
-    flex: 1,
-    minWidth: 300,
-    maxWidth: 600,
-  },
-  recTitle: {
-    fontSize: 28,
-    fontWeight: '#040316',
-    marginBottom: 12,
-  },
-  recDescription: {
-    fontSize: 16,
-    color: '#040316',
-    marginBottom: 24,
-  },
-  buttons: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  primaryBtn: {
-    backgroundColor: '#f5c024', // Accent color for primary button
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    borderRadius: 6,
-    borderWidth: 1,            
-    borderColor: '#f5c024',        
+    backgroundColor: '#fefcf1', // Set the background color
+    color: '#040316', // Set the text color
+    padding: 10, // Add padding for better appearance
+    borderRadius: 6, // Optional: Add rounded corners
+    textAlign: 'center',
+    borderWidth: 0, // Add a border
+    borderColor: '#fefcf1'
+    },
+    tabBtns: {
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+      backgroundColor: 'transparent',
+      borderRadius: 12, // Changed to a number as 'borderRadius' expects a number
+      borderWidth: 1, // Replaced 'border' with 'borderWidth'
+      borderColor: '#fefcf1', // Added 'borderColor' to define the border color
+      marginRight: 5,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    searchBtn: {
+      backgroundColor: '#f5c024',
+      paddingVertical: 4,
+      paddingHorizontal: 12,
+      borderRadius: 6,
+    },
+    searchText: {
+      color: '#040316',
+    },
+    main: {
+      flexDirection: 'row',
+      width: '100%',
+      maxWidth: 1200,
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      gap: 24,
+    },
+    left: {
+      flex: 1,
+      minWidth: 300,
+      maxWidth: 600,
+    },
+    recTitle: {
+      fontSize: 28,
+      fontWeight: 'bold',
+      marginBottom: 12,
+    },
+    recDescription: {
+      fontSize: 16,
+      color: '#040316',
+      marginBottom: 24,
+    },
+    buttons: {
+      flexDirection: 'row',
+      gap: 12,
+    },
+    primaryBtn: {
+      backgroundColor: '#f5c024', // Accent color for primary button
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+      borderRadius: 6,
+      borderWidth: 1,            
+      borderColor: '#f5c024',        
   },
   primaryBtnText: {
     color: '#040316',
@@ -316,7 +323,7 @@ const styles = StyleSheet.create({
   },  
   modalTitle: {
     fontSize: 20,
-    fontWeight: '#040316',
+    fontWeight: 'bold',
     marginBottom: 12,
   },
   closeButton: {
