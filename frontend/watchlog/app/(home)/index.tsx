@@ -72,7 +72,11 @@ export default function HomeScreen() {
             </Pressable> */}
             <Pressable style={styles.tabBtns} > <Text style={styles.secondaryBtnText}>Your Lists</Text> </Pressable>
             <button style={styles.navLink} > Recommendations </button>
-            <button style={styles.navLink} > Groups </button>
+	    <Link href= "/(tabs)/groups" asChild>
+              <Pressable>
+              <Text style={styles.navLink}>Groups</Text>
+              </Pressable>
+            </Link>
             <button style={styles.navLink} > Search </button>
           </View>
         </View>
