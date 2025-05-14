@@ -1,47 +1,79 @@
-import express from "express";
-import helmet from "helmet";
-import dotenv from "dotenv";
-import connectDB from "./db";
-import { createUser, getUsers } from "./userHandlers";
-import "dotenv/config";
-import { clerkMiddleware } from "@clerk/express";
-import { OMDB } from "./movieAPI";
-import type { MoviePromise } from "./movieAPI";
+import express from 'express';
+import helmet from 'helmet';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import 'dotenv/config';
 
-const app = express();
-const movie_api = new OMDB();
-const PORT = 3000;
+// Load env vars
 dotenv.config();
-// await connectDB();
-// app.use(clerkMiddleware())
+const MONGO_URI = process.env.MONGODB_URI!;
+const PORT = 3000;
 
-// Setup CORS middleware - add this before your routes
-app.use((req, res, next) => {
-	res.header("Access-Control-Allow-Origin", "http://localhost:8081");
-	res.header(
-		"Access-Control-Allow-Headers",
-		"Origin, X-Requested-With, Content-Type, Accept, Authorization",
-	);
-	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+// --- Import Handlers ---
+import {
+  createUser,
+  getUsers
+} from './MongoHandlers/userHandlers';
 
-	// Handle preflight requests
-	if (req.method === "OPTIONS") {
-		return res.status(200).end();
-	}
+import {
+  createMovie,
+  addToWatchList,
+  getWatchList,
+  addToWatched,
+  getWatched,
+  addToLiked,
+  getLiked,
+  addToDisliked,
+  getDisliked
+} from './MongoHandlers/movieHandlers';
 
-	next();
-});
+import {
+  createGuild,
+  addToGuild,
+  removeFromGuild,
+  getGuild
+} from './MongoHandlers/guildHandlers';
 
+// --- Create Express App ---
+const app = express();
+
+// --- Middleware ---
 app.use(helmet());
-
 app.use(express.json());
 
-app.post("/createUser", createUser);
+// --- User Routes ---
+app.post('/createUser', createUser);
+app.get('/getUsers', getUsers);
 
-app.get("/getUsers", getUsers);
+// --- Movie Routes ---
+app.post('/createMovie', createMovie);
+app.post('/users/watchlist', addToWatchList);
+app.get('/users/:id/watchlist', getWatchList);
 
-app.post("/searchMovie", movie_api.expressIO.bind(movie_api));
+app.post('/users/watched', addToWatched);
+app.get('/users/:id/watched', getWatched);
 
-app.listen(PORT, () => {
-	console.log(`Server running at http://localhost:${PORT}`);
-});
+app.post('/users/liked', addToLiked);
+app.get('/users/:id/liked', getLiked);
+
+app.post('/users/disliked', addToDisliked);
+app.get('/users/:id/disliked', getDisliked);
+
+// --- Guild Routes ---
+app.post('/guilds', createGuild);
+app.post('/guilds/add', addToGuild);
+app.post('/guilds/remove', removeFromGuild);
+app.get('/guilds/:id', getGuild);
+
+// --- MongoDB Connection ---
+mongoose.connect(MONGO_URI)
+  .then(() => {
+    console.log('✅ Connected to MongoDB');
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running at http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('❌ MongoDB connection failed:', err.message);
+    process.exit(1);
+  });
