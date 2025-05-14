@@ -4,10 +4,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "install:all": "bun install && cd backend && bun install && cd ../frontend/watchlog && bun install",
-    "dev:backend": "cd backend && bun run --hot index.ts",
-    "dev:frontend": "cd frontend/watchlog && bun run start",
-    "dev": "concurrently \"bun run dev:backend\" \"bun run dev:frontend\""
+    "install:all": "npm install && cd backend && npm install && cd ../frontend/watchlog && npm install",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend/watchlog && npm run start",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
   },
   "devDependencies": {
     "@types/bun": "latest",
