@@ -74,7 +74,7 @@ export default function HomeScreen() {
             <button style={styles.navLink} > Recommendations </button>
 	    <Link href= "/(tabs)/groups" asChild>
               <Pressable>
-              <Text style={styles.navLink}>Groups</Text>
+              <Text style={styles.navLink}>Your Groups</Text>
               </Pressable>
             </Link>
             <button style={styles.navLink} > Search </button>
