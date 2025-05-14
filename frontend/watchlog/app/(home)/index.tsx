@@ -156,18 +156,21 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 40,
     paddingHorizontal: 24,
-    backgroundColor: '#fff',
+    backgroundColor: '#fbfbfe',
     alignItems: 'center',
   },
   header: {
     width: '100%',
     maxWidth: 1200,
     marginBottom: 40,
+    backgroundColor: '#fefcf1', 
+    padding: 16,
+    borderRadius: 8,
   },
   logo: {
     fontSize: 24,
     fontWeight: '700',
-    borderColor: '#888',
+    borderColor: '#fefcf1',
     borderWidth: 1,
     paddingHorizontal: 6,
     marginBottom: 8,
@@ -181,7 +184,7 @@ const styles = StyleSheet.create({
   navLink: {
     marginRight: 20,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '#040316',
   },
   tabBtns: {
     paddingVertical: 10,
@@ -195,13 +198,13 @@ const styles = StyleSheet.create({
     cursor: "pointer"
   }, 
   searchBtn: {
-    backgroundColor: '#333',
+    backgroundColor: '#f5c024',
     paddingVertical: 4,
     paddingHorizontal: 12,
     borderRadius: 6,
   },
   searchText: {
-    color: 'white',
+    color: '#040316',
   },
   main: {
     flexDirection: 'row',
@@ -218,12 +221,12 @@ const styles = StyleSheet.create({
   },
   recTitle: {
     fontSize: 28,
-    fontWeight: '700',
+    fontWeight: '#040316',
     marginBottom: 12,
   },
   recDescription: {
     fontSize: 16,
-    color: '#444',
+    color: '#040316',
     marginBottom: 24,
   },
   buttons: {
@@ -231,24 +234,27 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   primaryBtn: {
-    backgroundColor: '#333',
+    backgroundColor: '#f5c024', // Accent color for primary button
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 6,
+    borderWidth: 1,            
+    borderColor: '#f5c024',        
   },
   primaryBtnText: {
-    color: 'white',
+    color: '#040316',
     fontWeight: '600',
   },
   secondaryBtn: {
-    borderWidth: 1,
-    borderColor: '#888',
+    backgroundColor: '#bde4ef', // Secondary color for secondary button border
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#bde4ef',
   },
   secondaryBtnText: {
-    color: '#444',
+    color: '#040316',
     fontWeight: '500',
   },
   imageBox: {
@@ -274,7 +280,7 @@ const styles = StyleSheet.create({
     width: 180,       // was 120
     height: 200,      // was 180
     borderRadius: 10,
-    backgroundColor: '#ccc',
+    backgroundColor: '#bde4ef',
   },
   posterContainer: {
     marginRight: 16,  // extra spacing for breathing room
@@ -310,11 +316,11 @@ const styles = StyleSheet.create({
   },  
   modalTitle: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: '#040316',
     marginBottom: 12,
   },
   closeButton: {
-    backgroundColor: '#333',
+    backgroundColor: '#040316',
     paddingVertical: 8,
     paddingHorizontal: 20,
     borderRadius: 6,
